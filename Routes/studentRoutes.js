@@ -5,7 +5,7 @@ import {
   confirmStudent,
   forgotPassword,
   resetPassword,
-} from "../controllers/studentController.js";
+} from "../Controllers/studentController.js";
 
 const studentRouter = Router();
 
