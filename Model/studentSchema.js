@@ -32,9 +32,9 @@ const studentSchema = new mongoose.Schema({
   qualification: {
     type: String,
   },
-  experience: {
-    type: String,
-  },
+  // experience: {
+  //   type: String,
+  // },
   codeKata: {
     type: String,
     default: '0',
@@ -47,10 +47,10 @@ const studentSchema = new mongoose.Schema({
     type: String,
     default: '0',
   },
-  isMentor: {
-    type: Boolean,
-    default: false,
-  },
+  // isMentor: {
+  //   type: Boolean,
+  //   default: false,
+  // },
   leave: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Leave',
