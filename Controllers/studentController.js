@@ -84,7 +84,7 @@ const updateStudent = async (req, res) => {
     matchedStudent.lName = lName;
     matchedStudent.contactNo = contactNo;
     matchedStudent.qualification = qualification;
-    matchedStudent.experience = experience;
+    // matchedStudent.experience = experience;
     matchedStudent.password = hashedPassword;
 
     await Student.findByIdAndUpdate(matchedStudent.id, matchedStudent);

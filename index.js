@@ -48,8 +48,13 @@ app.get("/", (req, res) => {
   res.send("Welcome to Zen-Dashboard");
 });
 
-// Registering routers
+// Public routes
 app.use("/", loginRouter);
+
+// Protected routes - Apply JWT token authentication middleware here
+import { authenticateToken } from "./Middleware/authMiddleware.js"; // Adjust the path as per your file structure
+app.use(authenticateToken);
+
 app.use("/student", studentRouter);
 app.use(taskRouter);
 app.use(leaveRouter);
