@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 // Define schema for tasks
 const taskSchema = new mongoose.Schema({
-  day: {
+  currentDay: {
     type: String,
     required: [true, "Task Day is required"],
     // Day of the task
@@ -30,7 +30,6 @@ const taskSchema = new mongoose.Schema({
   },
   task: {
     type: String,
-    required: [true, "Task No. is required"],
     // Task number or identifier
   },
   title: {
@@ -44,6 +43,7 @@ const taskSchema = new mongoose.Schema({
   },
   check: {
     type: String,
+    unique: true,
     // Check status or identifier
   },
   student: {

@@ -1,13 +1,32 @@
 import jwt from "jsonwebtoken";
 import Student from "../Model/studentSchema.js";
 import Query from "../Model/querySchema.js";
+import dotenv from "dotenv";
+import path from "path";
+import { fileURLToPath } from "url";
 
+// Get the directory name of the current module
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Determine which environment file to load
+const envPath =
+  process.env.NODE_ENV === "production"
+    ? ".env.production"
+    : ".env.development";
+
+// Load the environment variables from the correct file
+dotenv.config({ path: path.resolve(__dirname, envPath) });
+
+dotenv.config();
 const SECRET = process.env.JWT_SECRET;
 
 // Function to extract token from request headers
 const getTokenFrom = (req) => {
   const authorization = req.get("authorization");
-  const token = authorization?.startsWith("Bearer ") ? authorization.replace("Bearer ", "") : undefined;
+  const token = authorization?.startsWith("Bearer ")
+    ? authorization.replace("Bearer ", "")
+    : undefined;
   return token;
 };
 
@@ -15,23 +34,34 @@ const getTokenFrom = (req) => {
 const fetchQuery = async (req, res) => {
   try {
     const token = getTokenFrom(req);
+    console.log("Token received:", token); // Log token
+
     if (!token) {
-      return res.status(401).json({ message: "Session timeout, please login again" });
+      return res
+        .status(401)
+        .json({ message: "Session timeout, please login again" });
     }
 
     const decodedToken = jwt.verify(token, SECRET);
+    console.log("Decoded token:", decodedToken); // Log decoded token
+
     if (!decodedToken.id) {
       return res.status(401).json({ message: "Token invalid" });
     }
 
     const queries = await Student.findById(decodedToken.id).populate("query");
+    console.log("Fetched queries:", queries); // Log fetched queries
+
     if (!queries) {
       return res.status(404).json({ message: "No queries found" });
     }
 
     res.status(200).json(queries.query);
   } catch (error) {
-    return res.status(400).json({ message: "Error fetching data, please login & try again" });
+    console.error("Error fetching queries:", error); // Log errors
+    return res
+      .status(400)
+      .json({ message: "Error fetching data, please login & try again" });
   }
 };
 
@@ -43,7 +73,9 @@ const postQuery = async (req, res) => {
     const decodedToken = jwt.verify(token, SECRET);
 
     if (!decodedToken.id) {
-      return res.status(401).json({ message: "Session timeout, please login again" });
+      return res
+        .status(401)
+        .json({ message: "Session timeout, please login again" });
     }
 
     const student = await Student.findById(decodedToken.id);
@@ -75,7 +107,9 @@ const deleteQuery = async (req, res) => {
     const decodedToken = jwt.verify(token, SECRET);
 
     if (!decodedToken.id) {
-      return res.status(401).json({ message: "Session timeout, please login again" });
+      return res
+        .status(401)
+        .json({ message: "Session timeout, please login again" });
     }
 
     const matchedQuery = await Query.findById(id);
