@@ -1,6 +1,6 @@
-# Zenclass Student Dashboard Frontend
+# Zenclass Student Dashboard backend
 
-Welcome to the Zenclass Student Dashboard frontend repository! This project provides an interactive and user-friendly dashboard for students to manage their academic activities efficiently.
+Welcome to the Zenclass Student Dashboard backend repository! This project provides an interactive and user-friendly dashboard for students to manage their academic activities efficiently.
 
 ## Table of Contents
 
