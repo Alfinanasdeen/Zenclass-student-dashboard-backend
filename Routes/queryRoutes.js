@@ -1,5 +1,9 @@
 import { Router } from "express";
-import { fetchQuery, postQuery, deleteQuery } from "../Controllers/queryController.js";
+import {
+  fetchQuery,
+  postQuery,
+  deleteQuery,
+} from "../Controllers/queryController.js";
 import { authenticateToken } from "../Middleware/authMiddleware.js";
 import dotenv from "dotenv";
 import path from "path";
@@ -24,9 +28,9 @@ dotenv.config();
 const queryRouter = Router();
 
 // Define the routes
-queryRouter.get("/student/query",authenticateToken, fetchQuery);
-queryRouter.post("/student/query",authenticateToken, postQuery);
-queryRouter.delete("/student/query/:id",authenticateToken, deleteQuery);
+queryRouter.get("/student/query", authenticateToken, fetchQuery);
+queryRouter.post("/student/query", authenticateToken, postQuery);
+queryRouter.delete("/student/query/:id", authenticateToken, deleteQuery);
 
 // Export the router
 export default queryRouter;

@@ -21,8 +21,6 @@ dotenv.config();
 const SECRET = process.env.JWT_SECRET;
 console.log("JWT_SECRET:", process.env.JWT_SECRET);
 
-
-
 const getTokenFrom = (req) => {
   const authorization = req.headers.authorization;
   console.log("Authorization header:", authorization);
@@ -45,6 +43,9 @@ const authenticateToken = (req, res, next) => {
   jwt.verify(token, SECRET, (err, decoded) => {
     if (err) {
       console.error("Error verifying token:", err);
+      if (err.name === "TokenExpiredError") {
+        return res.status(401).json({ message: "TokenExpired" });
+      }
       return res.status(401).json({ message: "Unauthorized: Invalid token" });
     }
     req.user = decoded;
