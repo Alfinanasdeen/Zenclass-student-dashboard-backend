@@ -86,10 +86,10 @@ const postTask = async (req, res) => {
       title,
       check,
     } = req.body;
-    console.log("Request body:", req.body); // Add this line for debugging
+    console.log("Request body:", req.body); 
 
     const token = getTokenFrom(req);
-    console.log("Extracted token:", token); // Add this line for debugging
+    console.log("Extracted token:", token); 
 
     const decodedToken = jwt.verify(token, SECRET);
     if (!decodedToken.id) {

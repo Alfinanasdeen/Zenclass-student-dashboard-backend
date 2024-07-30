@@ -1,6 +1,5 @@
 import { Router } from "express";
 import { login } from "../Controllers/loginController.js";
-import { registerStudent } from "../Controllers/registerController.js";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
@@ -25,7 +24,6 @@ const loginRouter = Router();
 
 // Define the login route
 loginRouter.post("/student/login", login);
-// loginRouter.post("/student/register", registerStudent);
 
 // Export the router
 export default loginRouter;

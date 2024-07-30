@@ -23,8 +23,10 @@ dotenv.config();
 // Initialize the router
 const mockRouter = Router();
 
-// Define the routes
+// Fetching all Mock Interview detils
 mockRouter.get("/student/mock",authenticateToken, fetchMock);
+
+//posting all Mock Interview detils
 mockRouter.post("/student/mock",authenticateToken, postMock);
 
 // Export the router

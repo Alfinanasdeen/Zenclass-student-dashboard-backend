@@ -53,7 +53,6 @@ const login = async (req, res) => {
       id: student._id,
     };
 
-    // Ensure SECRET is defined and not empty
     if (!SECRET) {
       console.error("JWT_SECRET not defined in environment variables.");
       return res.status(500).json({ message: "Internal server error" });
@@ -61,8 +60,6 @@ const login = async (req, res) => {
 
     const token = jwt.sign(studentToken, SECRET, { expiresIn: "1h" });
     console.log("Generated token:", token);
-
-    // Respond with token and student details
     console.log("Login successful");
     res.status(200).json({ token, student });
   } catch (error) {

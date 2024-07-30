@@ -19,6 +19,8 @@ const envPath =
 dotenv.config({ path: path.resolve(__dirname, envPath) });
 
 dotenv.config();
+
+// Function to register a new student
 const registerStudent = async (req, res) => {
   const { name, lName, email, password } = req.body;
 

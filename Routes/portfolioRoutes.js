@@ -26,8 +26,10 @@ dotenv.config();
 // Initialize the router
 const portfolioRouter = Router();
 
-// Define the routes
+//Fetching portfolio
 portfolioRouter.get("/student/portfolio", authenticateToken, fetchPortfolio);
+
+// Posting portfolio 
 portfolioRouter.post("/student/portfolio", authenticateToken, postPortfolio);
 
 // Export the router

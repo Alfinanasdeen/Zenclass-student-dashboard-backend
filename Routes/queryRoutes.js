@@ -27,9 +27,13 @@ dotenv.config();
 // Initialize the router
 const queryRouter = Router();
 
-// Define the routes
+// Fetching query request
 queryRouter.get("/student/query", authenticateToken, fetchQuery);
+
+// posting query request
 queryRouter.post("/student/query", authenticateToken, postQuery);
+
+// Deleting query request
 queryRouter.delete("/student/query/:id", authenticateToken, deleteQuery);
 
 // Export the router

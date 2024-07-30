@@ -70,14 +70,14 @@ const postCapstone = async (req, res) => {
   try {
     const { feUrl, beUrl, feCode, beCode } = req.body;
     const token = getTokenFrom(req);
-    console.log("Extracted token:", token); // For debugging
+    console.log("Extracted token:", token); 
 
     if (!token) {
       return res.status(401).json({ message: "Unauthorized: Missing token" });
     }
 
     const decodedToken = jwt.verify(token, SECRET);
-    console.log("Decoded Token:", decodedToken); // For debugging
+    console.log("Decoded Token:", decodedToken);
 
     const { id } = decodedToken; // Extract id from decodedToken
 

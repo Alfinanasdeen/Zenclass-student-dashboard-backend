@@ -29,6 +29,7 @@ const getTokenFrom = (req) => {
   return token;
 };
 
+// Fetch portfolio for authenticated student
 const fetchPortfolio = async (req, res) => {
   try {
     const token = getTokenFrom(req);
@@ -55,6 +56,7 @@ const fetchPortfolio = async (req, res) => {
   }
 };
 
+// Post portfolio data for authenticated student
 const postPortfolio = async (req, res) => {
   try {
     const { portfolioURL, githubURL, resumeURL } = req.body;

@@ -23,6 +23,8 @@ const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS;
 const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
 const FEURL = process.env.FRONTEND_URL;
 
+
+//SignUp function
 const signupStudent = async (req, res) => {
   console.log("Signup request received:", req.body);
   try {
@@ -82,6 +84,7 @@ const signupStudent = async (req, res) => {
   }
 };
 
+//update Student Function
 const updateStudent = async (req, res) => {
   try {
     const { email, name, lName, contactNo, qualification, experience, password } = req.body;
@@ -101,7 +104,6 @@ const updateStudent = async (req, res) => {
     matchedStudent.lName = lName;
     matchedStudent.contactNo = contactNo;
     matchedStudent.qualification = qualification;
-    // matchedStudent.experience = experience;
     matchedStudent.password = hashedPassword;
 
     await Student.findByIdAndUpdate(matchedStudent.id, matchedStudent);
@@ -113,6 +115,7 @@ const updateStudent = async (req, res) => {
   }
 };
 
+//Confirming Student Function
 const confirmStudent = async (req, res) => {
   try {
     const resetToken = req.params.token;
@@ -139,6 +142,7 @@ const confirmStudent = async (req, res) => {
   }
 };
 
+//Forgot Password function
 const forgotPassword = async (req, res) => {
   try {
     const { email } = req.body;
@@ -178,6 +182,7 @@ const forgotPassword = async (req, res) => {
   }
 };
 
+//reset password function
 const resetPassword = async (req, res) => {
   try {
     const { password } = req.body;
