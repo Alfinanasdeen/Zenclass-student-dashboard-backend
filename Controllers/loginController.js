@@ -21,6 +21,7 @@ dotenv.config({ path: path.resolve(__dirname, envPath) });
 dotenv.config();
 const SECRET = process.env.JWT_SECRET;
 
+// login function
 const login = async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -58,7 +59,7 @@ const login = async (req, res) => {
       return res.status(500).json({ message: "Internal server error" });
     }
 
-    const token = jwt.sign(studentToken, SECRET, { expiresIn: "1h" });
+    const token = jwt.sign(studentToken, SECRET, { expiresIn: "3h" });
     console.log("Generated token:", token);
     console.log("Login successful");
     res.status(200).json({ token, student });

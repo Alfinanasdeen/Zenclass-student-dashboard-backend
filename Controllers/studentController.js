@@ -28,7 +28,7 @@ const FEURL = process.env.FRONTEND_URL;
 const signupStudent = async (req, res) => {
   console.log("Signup request received:", req.body);
   try {
-    const { email, name, lName, contactNo, experience, qualification, password } = req.body;
+    const { email, name, lName, contactNo, qualification, password } = req.body;
 
     if (!name || !email || !password) {
       return res.status(400).json({ message: "All fields are mandatory" });
@@ -47,7 +47,6 @@ const signupStudent = async (req, res) => {
     const student = await Student.create({
       email,
       name,
-      experience,
       qualification,
       lName,
       contactNo,
@@ -87,7 +86,7 @@ const signupStudent = async (req, res) => {
 //update Student Function
 const updateStudent = async (req, res) => {
   try {
-    const { email, name, lName, contactNo, qualification, experience, password } = req.body;
+    const { email, name, lName, contactNo, qualification, password } = req.body;
 
     const matchedStudent = await Student.findOne({ email });
     if (!matchedStudent) {
