@@ -32,7 +32,7 @@ const app = express();
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
 const hostname = "0.0.0.0";
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3001;
 
 connectToMongoDB();
 
@@ -45,7 +45,7 @@ app.use(
     credentials: true, // Allow credentials (cookies, authorization headers)
   })
 );
-console.log(cors.origin);
+
 
 app.get("/", (req, res) => {
   res.send("Welcome to Zen-Dashboard");

@@ -18,7 +18,6 @@ const envPath =
 // Load the environment variables from the correct file
 dotenv.config({ path: path.resolve(__dirname, envPath) });
 
-dotenv.config();
 const SECRET = process.env.JWT_SECRET;
 
 // login function

@@ -60,6 +60,13 @@ const fetchPortfolio = async (req, res) => {
 const postPortfolio = async (req, res) => {
   try {
     const { portfolioURL, githubURL, resumeURL } = req.body;
+
+    console.log("Request body:", req.body);
+
+    if (!portfolioURL || !githubURL || !resumeURL) {
+      return res.status(400).json({ message: "Missing required fields" });
+    }
+    
     const token = getTokenFrom(req);
     const decodedToken = jwt.verify(token, SECRET);
 
