@@ -24,6 +24,7 @@ function connectToMongoDB() {
     process.env.NODE_ENV === "development"
       ? process.env.MONGODB_URI
       : `mongodb+srv://${process.env.MONGODB_NAME}:${process.env.MONGODB_PASSWORD}@zenclass.polb2ae.mongodb.net/?retryWrites=true&w=majority&appName=zenClass`;
+        
   mongoose
     .connect(DATABASE_URI)
     .then((response) => {
