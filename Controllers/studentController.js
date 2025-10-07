@@ -19,10 +19,10 @@ const envPath =
 dotenv.config({ path: path.resolve(__dirname, envPath) });
 
 dotenv.config();
+
 const EMAIL_ADDRESS = process.env.EMAIL_ADDRESS;
 const EMAIL_PASSWORD = process.env.EMAIL_PASSWORD;
 const FEURL = process.env.FRONTEND_URL;
-
 
 //SignUp function
 const signupStudent = async (req, res) => {
@@ -39,7 +39,9 @@ const signupStudent = async (req, res) => {
       return res.status(400).json({ message: "Student already exists" });
     }
 
-    const randomString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const randomString =
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
     const link = `${FEURL}/confirm/${randomString}`;
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -56,30 +58,17 @@ const signupStudent = async (req, res) => {
 
     console.log("Student created:", student);
 
-    const transporter = nodemailer.createTransport({
-      service: "gmail",
-      auth: {
-        user: EMAIL_ADDRESS,
-        pass: EMAIL_PASSWORD,
-      },
+    // ✅ Nodemailer code removed
+
+    res.status(201).json({
+      message: `Account created successfully ${student.name}`,
+      confirmationLink: link, // optional — you can remove this if not needed
     });
-
-    const sendMail = async () => {
-      await transporter.sendMail({
-        from: `"Alfina" <${EMAIL_ADDRESS}>`,
-        to: student.email,
-        subject: "Confirm account",
-        text: link,
-      });
-    };
-
-    await sendMail();
-    console.log("Confirmation email sent to:", student.email);
-
-    res.status(201).json({ message: `Account created successfully ${student.name}` });
   } catch (error) {
     console.error(error);
-    return res.status(400).json({ message: "Error on sign up, please try again" });
+    return res
+      .status(400)
+      .json({ message: "Error on sign up, please try again" });
   }
 };
 
@@ -90,7 +79,9 @@ const updateStudent = async (req, res) => {
 
     const matchedStudent = await Student.findOne({ email });
     if (!matchedStudent) {
-      return res.status(400).json({ message: "Please enter valid email / Entered email not registered" });
+      return res.status(400).json({
+        message: "Please enter valid email / Entered email not registered",
+      });
     }
 
     if (!name || !email || !password) {
@@ -107,10 +98,14 @@ const updateStudent = async (req, res) => {
 
     await Student.findByIdAndUpdate(matchedStudent.id, matchedStudent);
 
-    res.status(201).json({ message: "Account updated successfully", matchedStudent });
+    res
+      .status(201)
+      .json({ message: "Account updated successfully", matchedStudent });
   } catch (error) {
     console.error(error);
-    return res.status(400).json({ message: "Error on updating, please try again later" });
+    return res
+      .status(400)
+      .json({ message: "Error on updating, please try again later" });
   }
 };
 
@@ -123,7 +118,9 @@ const confirmStudent = async (req, res) => {
     const matchedStudent = await Student.findOne({ resetToken });
 
     if (!matchedStudent || matchedStudent.resetToken === "") {
-      return res.status(400).json({ message: "Student not found or link expired" });
+      return res
+        .status(400)
+        .json({ message: "Student not found or link expired" });
     }
 
     // Update student verification status
@@ -153,7 +150,9 @@ const forgotPassword = async (req, res) => {
       });
     }
 
-    const randomString = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+    const randomString =
+      Math.random().toString(36).substring(2, 15) +
+      Math.random().toString(36).substring(2, 15);
     const link = `${FEURL}/reset/${randomString}`;
 
     matchedStudent.resetToken = randomString;
@@ -174,10 +173,14 @@ const forgotPassword = async (req, res) => {
       text: link,
     });
 
-    res.status(201).json({ message: `Mail has been sent to ${matchedStudent.email}` });
+    res
+      .status(201)
+      .json({ message: `Mail has been sent to ${matchedStudent.email}` });
   } catch (error) {
     console.error(error);
-    return res.status(400).json({ message: "Error on updating, please try again later" });
+    return res
+      .status(400)
+      .json({ message: "Error on updating, please try again later" });
   }
 };
 
@@ -190,7 +193,9 @@ const resetPassword = async (req, res) => {
     const matchedStudent = await Student.findOne({ resetToken });
 
     if (!matchedStudent || matchedStudent.resetToken === "") {
-      return res.status(400).json({ message: "Student not found or reset link expired" });
+      return res
+        .status(400)
+        .json({ message: "Student not found or reset link expired" });
     }
 
     const hashedPassword = await bcrypt.hash(password, 10);
@@ -205,7 +210,9 @@ const resetPassword = async (req, res) => {
     });
   } catch (error) {
     console.error(error);
-    return res.status(400).json({ message: "Student not found or reset link expired" });
+    return res
+      .status(400)
+      .json({ message: "Student not found or reset link expired" });
   }
 };
 

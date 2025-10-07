@@ -39,6 +39,7 @@ connectToMongoDB();
 app.use(express.json());
 app.use(
   cors({
+    // origin: '*',
     origin: process.env.FRONTEND_URL,
     methods: ["GET", "POST", "PUT", "DELETE"], // Allowed methods
     allowedHeaders: ["Content-Type", "Authorization"], // Allowed headers
